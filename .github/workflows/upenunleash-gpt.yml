@@ -1,0 +1,24 @@
+name: GPT GitHub Command Bridge
+
+on:
+  issues:
+    types: [labeled]
+    # Only respond when label is added
+
+jobs:
+  handle-gpt-command:
+    if: github.event.label.name == 'gpt-command'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Run GPT command handler
+        run: python3 scripts/handle_gpt_commands.py
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
