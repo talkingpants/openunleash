@@ -5,6 +5,10 @@ on:
     types: [labeled]
     # Only respond when label is added
 
+permissions:
+  contents: write
+  issues: write
+
 jobs:
   handle-gpt-command:
     if: github.event.label.name == 'gpt-command'
